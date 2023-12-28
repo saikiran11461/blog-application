@@ -1,8 +1,7 @@
-const mongoose = require("mongoose");
+const mongoose = require('mongoose');
 
-
-const Connection =()=>{
-    return mongoose.connect("mongodb://localhost:27017/blog-application")
+const Connection = ()=>{
+    return mongoose.connect("mongodb://localhost:27017/local")
 };
 
-module.exports ={Connection}
+module.exports = {Connection}

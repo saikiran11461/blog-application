@@ -1,14 +1,16 @@
-const express = require("express");
-const { Connection } = require("./src/config/db");
+const express = require('express');
+const { Connection } = require('./src/config/db');
+const {postRouter} = require("./src/routes/post.routes")
 
 const app = express();
 
-
-app.listen(3100,async()=>{
+app.use(express.json())
+app.use("/posts", postRouter)
+app.listen(5000,async()=>{
     try {
-        await Connection()
+        await Connection();
         console.log("db connected success")
     } catch (error) {
-        console.log(error.message)
+        console.log(error)
     }
 })
