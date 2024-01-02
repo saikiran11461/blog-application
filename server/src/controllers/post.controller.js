@@ -5,7 +5,7 @@ const {postModel} = require("../models/post.model");
 const postController = {
     getPost : async(req,res)=>{
         try {
-            const Post = await postModel.find().populate({path:"user_id", select:["name", "email"]});
+            const Post = await postModel.find().populate({path:"user_id", select:["firstName", "email"]});
             return res.status(200).send(Post)
         } catch (error) {
             return res.status(500).send(error.message)
@@ -13,7 +13,7 @@ const postController = {
     },
     singlePost:async(req, res)=>{
         try {
-            const Post = await postModel.findById(req.params.id);
+            const Post = await postModel.findById(req.params.id).populate({path:"user_id", select:["firstName", "email"]});
             return res.status(200).send(Post);
         } catch (error) {
             return res.status(500).send(error.message)
@@ -30,7 +30,7 @@ const postController = {
     deletePost : async(req, res)=>{
         try {
             const post = await postModel.findByIdAndDelete(req.params.id);
-            return res.status(200).send(post);
+            return res.status(200).send({post, message:"deleted successfully"});
         } catch (error) {
             return res.status(500).send(error.message)
         }
